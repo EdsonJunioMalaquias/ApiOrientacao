@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190817002908_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190823222919_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190823222919_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190913235815_MapeamentoProgrammerDay.cs" />
+    <Compile Remove="Migrations\20190913235815_MapeamentoProgrammerDay.Designer.cs" />
+    <Compile Remove="Migrations\20190919143234_Tables_Professor_Orientacao_TipoOrientacao_Projeto_SituacaoProjeto_Situacao.cs" />
+    <Compile Remove="Migrations\20190919143234_Tables_Professor_Orientacao_TipoOrientacao_Projeto_SituacaoProjeto_Situacao.Designer.cs" />
+    <Compile Remove="Migrations\20190919144226_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190919144226_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190919144634_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190919144634_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190919145053_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190919145053_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190919150545_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190919150545_InitialMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>

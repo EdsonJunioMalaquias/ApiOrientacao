@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIOrientacao", "APIOrientacao\APIOrientacao.csproj", "{220ED388-B40F-46E7-B896-498725AD6BC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIOrientacao.Data", "APIOrientacao.Data\APIOrientacao.Data.csproj", "{3B3A13DA-943A-4C2E-800F-390B715705CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{220ED388-B40F-46E7-B896-498725AD6BC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{220ED388-B40F-46E7-B896-498725AD6BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{220ED388-B40F-46E7-B896-498725AD6BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{220ED388-B40F-46E7-B896-498725AD6BC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B3A13DA-943A-4C2E-800F-390B715705CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B3A13DA-943A-4C2E-800F-390B715705CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B3A13DA-943A-4C2E-800F-390B715705CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B3A13DA-943A-4C2E-800F-390B715705CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C24AFAE-DEB4-444B-A99C-35CBFF544B7C}
+	EndGlobalSection
+EndGlobal
