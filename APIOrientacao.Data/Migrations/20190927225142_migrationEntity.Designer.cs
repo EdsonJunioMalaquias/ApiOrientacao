@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIOrientacao.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20190919150626_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20190927225142_migrationEntity")]
+    partial class migrationEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -204,13 +204,13 @@ namespace APIOrientacao.Data.Migrations
                         .WithOne("Aluno")
                         .HasForeignKey("APIOrientacao.Data.Entidades.Aluno", "Id")
                         .HasConstraintName("PFK_PessoaAluno")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("APIOrientacao.Data.Entidades.Curso", "Curso")
                         .WithMany("Alunos")
                         .HasForeignKey("IdCurso")
                         .HasConstraintName("FK_CursoAluno")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("APIOrientacao.Data.Entidades.Orientacao", b =>
@@ -219,19 +219,19 @@ namespace APIOrientacao.Data.Migrations
                         .WithMany("Orientacoes")
                         .HasForeignKey("ProfessorPessoaId")
                         .HasConstraintName("PFK_ProfessorPessoaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("APIOrientacao.Data.Entidades.Projeto", "Projeto")
                         .WithMany("Orientacoes")
                         .HasForeignKey("ProjetoId")
-                        .HasConstraintName("PFK_ProjetoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("PFK_ProjetoIdOrientacao")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("APIOrientacao.Data.Entidades.TipoOrientacao", "TipoOrientacao")
                         .WithMany("Orientacoes")
                         .HasForeignKey("TipoOrientacaoId")
                         .HasConstraintName("FK_TipoOrientacaoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("APIOrientacao.Data.Entidades.Professor", b =>
@@ -240,7 +240,7 @@ namespace APIOrientacao.Data.Migrations
                         .WithOne("Professor")
                         .HasForeignKey("APIOrientacao.Data.Entidades.Professor", "Id")
                         .HasConstraintName("PFK_PessoaProfessor")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("APIOrientacao.Data.Entidades.Projeto", b =>
@@ -249,7 +249,7 @@ namespace APIOrientacao.Data.Migrations
                         .WithMany("Projetos")
                         .HasForeignKey("PessoaAlunoId")
                         .HasConstraintName("FK_PessoaAlunoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("APIOrientacao.Data.Entidades.SituacaoProjeto", b =>
@@ -257,14 +257,14 @@ namespace APIOrientacao.Data.Migrations
                     b.HasOne("APIOrientacao.Data.Entidades.Projeto", "Projeto")
                         .WithMany("SituacaoProjetos")
                         .HasForeignKey("ProjetoId")
-                        .HasConstraintName("PFK_ProjetoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("PFK_ProjetoIdSituacaoProjeto")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("APIOrientacao.Data.Entidades.Situacao", "Situacao")
                         .WithMany("SituacaoProjetos")
                         .HasForeignKey("SituacaoId")
                         .HasConstraintName("PFK_SituacaoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

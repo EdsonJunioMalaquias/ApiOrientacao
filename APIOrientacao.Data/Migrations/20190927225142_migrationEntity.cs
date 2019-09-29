@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace APIOrientacao.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class migrationEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -86,14 +86,14 @@ namespace APIOrientacao.Data.Migrations
                         principalSchema: "dbo",
                         principalTable: "Pessoa",
                         principalColumn: "IdPessoa",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CursoAluno",
                         column: x => x.IdCurso,
                         principalSchema: "dbo",
                         principalTable: "Curso",
                         principalColumn: "IdCurso",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,7 +113,7 @@ namespace APIOrientacao.Data.Migrations
                         principalSchema: "dbo",
                         principalTable: "Pessoa",
                         principalColumn: "IdPessoa",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,7 +137,7 @@ namespace APIOrientacao.Data.Migrations
                         principalSchema: "dbo",
                         principalTable: "Aluno",
                         principalColumn: "IdPessoa",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -159,21 +159,21 @@ namespace APIOrientacao.Data.Migrations
                         principalSchema: "dbo",
                         principalTable: "Professor",
                         principalColumn: "IdPessoa",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "PFK_ProjetoId",
+                        name: "PFK_ProjetoIdOrientacao",
                         column: x => x.ProjetoId,
                         principalSchema: "dbo",
                         principalTable: "Projeto",
                         principalColumn: "ProjetoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TipoOrientacaoId",
                         column: x => x.IdTipoOrientacao,
                         principalSchema: "dbo",
                         principalTable: "TipoOrientacao",
                         principalColumn: "TipoOrientacaoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,19 +189,19 @@ namespace APIOrientacao.Data.Migrations
                 {
                     table.PrimaryKey("PK_SituacaoProjeto", x => new { x.ProjetoId, x.SituacaoId });
                     table.ForeignKey(
-                        name: "PFK_ProjetoId",
+                        name: "PFK_ProjetoIdSituacaoProjeto",
                         column: x => x.ProjetoId,
                         principalSchema: "dbo",
                         principalTable: "Projeto",
                         principalColumn: "ProjetoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "PFK_SituacaoId",
                         column: x => x.SituacaoId,
                         principalSchema: "dbo",
                         principalTable: "Situacao",
                         principalColumn: "SituacaoId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

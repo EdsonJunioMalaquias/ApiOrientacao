@@ -20,6 +20,14 @@
     <Compile Remove="Migrations\20190919145053_InitialMigration.Designer.cs" />
     <Compile Remove="Migrations\20190919150545_InitialMigration.cs" />
     <Compile Remove="Migrations\20190919150545_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190919150626_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190919150626_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190927224345_PropriedadeExclusaoCascade.cs" />
+    <Compile Remove="Migrations\20190927224345_PropriedadeExclusaoCascade.Designer.cs" />
+    <Compile Remove="Migrations\20190927224454_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190927224454_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190927224811_migrationEntity.cs" />
+    <Compile Remove="Migrations\20190927224811_migrationEntity.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

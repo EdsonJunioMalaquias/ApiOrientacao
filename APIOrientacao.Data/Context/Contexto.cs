@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace APIOrientacao.Data.Context
@@ -31,7 +32,13 @@ namespace APIOrientacao.Data.Context
         //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+
         {
+
+            foreach (var relacionamento in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relacionamento.DeleteBehavior = DeleteBehavior.Restrict;
+            }
             modelBuilder.ForSqlServerUseIdentityColumns();
             modelBuilder.HasDefaultSchema("dbo");
 
@@ -176,7 +183,7 @@ namespace APIOrientacao.Data.Context
                 e.HasOne(a=> a.Projeto)
                 .WithMany(b=>b.SituacaoProjetos)
                 .HasForeignKey(a => a.ProjetoId)
-                .HasConstraintName("PFK_ProjetoId");
+                .HasConstraintName("PFK_ProjetoIdSituacaoProjeto");
 
 
                 e.Property(c => c.DataRegistro)
@@ -206,7 +213,7 @@ namespace APIOrientacao.Data.Context
                 e.HasOne(a => a.Projeto)
                 .WithMany(b => b.Orientacoes)
                 .HasForeignKey(a => a.ProjetoId)
-                .HasConstraintName("PFK_ProjetoId");
+                .HasConstraintName("PFK_ProjetoIdOrientacao");
 
                 e.HasOne(a => a.TipoOrientacao)
                 .WithMany(b => b.Orientacoes)
