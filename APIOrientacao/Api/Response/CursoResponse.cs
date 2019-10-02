@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace APIOrientacao.Api.Response
 {
-    public class PessoaResponse
+    public class CursoResponse
     {
-        public int IdPessoa { get; set; }
+        public int IdCurso { get; set; }
         public string Nome { get; set; }
-        public string Cpf { get; set; }
     }
 }

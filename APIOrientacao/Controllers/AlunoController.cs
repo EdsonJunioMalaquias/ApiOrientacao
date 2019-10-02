@@ -12,92 +12,92 @@ using Microsoft.AspNetCore.Mvc;
 namespace APIOrientacao.Controllers
 {
     [Route("api/[controller]")]
-    public class PessoaController : Controller
+    public class AlunoController : Controller
     {
         private readonly Contexto contexto;
 
-        public PessoaController(Contexto contexto)
+        public AlunoController(Contexto contexto)
         {
             this.contexto = contexto;
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(PessoaResponse), 200)]
+        [ProducesResponseType(typeof(AlunoResponse), 200)]
         [ProducesResponseType(400)]
         public IActionResult Post([FromBody]
-            PessoaRequest pessoaRequest)
+            AlunoRequest alunoRequest)
         {
 
-            var pessoa = new Pessoa
+            var aluno = new Aluno
             {
-                Nome = pessoaRequest.Nome
+                Nome = alunoRequest.Nome
             };
 
-            contexto.Pessoa.Add(pessoa);
+            contexto.Aluno.Add(aluno);
             contexto.SaveChanges();
 
-            var pessoaRetorno = contexto.Pessoa.Where
-                (x => x.Id == pessoa.Id)
+            var alunoRetorno = contexto.Aluno.Where
+                (x => x.Id == aluno.Id)
                 .FirstOrDefault();
 
-            PessoaResponse response = new PessoaResponse();
+            AlunoResponse response = new AlunoResponse();
 
-            if (pessoaRetorno != null)
+            if (alunoRetorno != null)
             {
-                response.IdPessoa = pessoaRetorno.Id;
-                response.Nome = pessoaRetorno.Nome;
+                response.IdAluno = alunoRetorno.Id;
+                response.Nome = alunoRetorno.Nome;
             }
 
             return StatusCode(200, response);
         }
 
-        [HttpGet("{idPessoa}")]
-        [ProducesResponseType(typeof(PessoaResponse), 200)]
-        public IActionResult Get(int idPessoa)
+        [HttpGet("{idAluno}")]
+        [ProducesResponseType(typeof(AlunoResponse), 200)]
+        public IActionResult Get(int idAluno)
         {
-            var pessoa = contexto.Pessoa.FirstOrDefault(
-                x => x.Id == idPessoa);
+            var aluno = contexto.Aluno.FirstOrDefault(
+                x => x.Id == idAluno);
 
-            return StatusCode(pessoa == null
+            return StatusCode(aluno == null
                 ? 404 :
-                200, new PessoaResponse
+                200, new AlunoResponse
                 {
-                    IdPessoa = pessoa == null ? -1 : pessoa.Id,
-                    Nome = pessoa == null ? "Pessoa não encontrada"
-                    : pessoa.Nome
+                    IdAluno = aluno == null ? -1 : aluno.Id,
+                    Nome = aluno == null ? "Aluno não encontrada"
+                    : aluno.Nome
                 });
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(PessoaResponse), 200)]
+        [ProducesResponseType(typeof(AlunoResponse), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult Put(int id, [FromBody] PessoaRequest pessoaRequest)
+        public IActionResult Put(int id, [FromBody] AlunoRequest alunoRequest)
         {
             try
             {
-                var pessoa = contexto.Pessoa.Where(x => x.Id == id)
+                var aluno = contexto.Aluno.Where(x => x.Id == id)
                         .FirstOrDefault();
 
-                if (pessoa != null)
+                if (aluno != null)
                 {
-                    pessoa.Nome = pessoaRequest.Nome;
+                    aluno.Nome = alunoRequest.Nome;
                 }
 
-                contexto.Entry(pessoa).State =
+                contexto.Entry(aluno).State =
                     Microsoft.EntityFrameworkCore.EntityState.Modified;
 
                 contexto.SaveChanges();
 
-                var pessoaRetorno = contexto.Pessoa.FirstOrDefault
+                var alunoRetorno = contexto.Aluno.FirstOrDefault
                 (
                     x => x.Id == id
                 );
 
-                PessoaResponse retorno = new PessoaResponse()
+                AlunoResponse retorno = new AlunoResponse()
                 {
-                    IdPessoa = pessoaRetorno.Id,
-                    Nome = pessoaRetorno.Nome
+                    IdAluno = alunoRetorno.Id,
+                    Nome = alunoRetorno.Nome
                 };
 
                 return StatusCode(200, retorno);
@@ -117,16 +117,16 @@ namespace APIOrientacao.Controllers
         {
             try
             {
-                var pessoa = contexto.Pessoa.FirstOrDefault(
+                var aluno = contexto.Aluno.FirstOrDefault(
                     x => x.Id == id);
 
-                if (pessoa != null)
+                if (aluno != null)
                 {
-                    contexto.Pessoa.Remove(pessoa);
+                    contexto.Aluno.Remove(aluno);
                     contexto.SaveChanges();
                 }
 
-                return StatusCode(200, "Pessoa excluída com sucesso!");
+                return StatusCode(200, "Aluno excluída com sucesso!");
             }
 
             catch (Exception ex)

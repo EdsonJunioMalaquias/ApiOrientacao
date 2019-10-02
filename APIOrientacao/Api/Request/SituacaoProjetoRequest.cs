@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace APIOrientacao.Api.Request
 {
-    public class PessoaRequest
+    public class SituacaoProjetoRequest
     {
         [Required(ErrorMessage = "O nome é obrigatório")]
-        public string Nome { get; set; }
-        public string Cpf { get; set; }
+        public int SituacaoId { get; set; }
+        public int ProjetoId { get; set; }
     }
 }

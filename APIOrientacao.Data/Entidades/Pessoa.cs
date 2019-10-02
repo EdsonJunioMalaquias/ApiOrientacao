@@ -9,6 +9,7 @@ namespace APIOrientacao.Data.Entidades
     {
         [Required(ErrorMessage = "O nome é obrigatório!")]
         public string Nome { get; set; }
+        public string Cpf { get; set; }
 
         public Aluno Aluno { get; set; }
         public Professor Professor { get; set; }

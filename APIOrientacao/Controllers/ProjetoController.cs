@@ -12,92 +12,92 @@ using Microsoft.AspNetCore.Mvc;
 namespace APIOrientacao.Controllers
 {
     [Route("api/[controller]")]
-    public class PessoaController : Controller
+    public class ProjetoController : Controller
     {
         private readonly Contexto contexto;
 
-        public PessoaController(Contexto contexto)
+        public ProjetoController(Contexto contexto)
         {
             this.contexto = contexto;
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(PessoaResponse), 200)]
+        [ProducesResponseType(typeof(ProjetoResponse), 200)]
         [ProducesResponseType(400)]
         public IActionResult Post([FromBody]
-            PessoaRequest pessoaRequest)
+            ProjetoRequest projetoRequest)
         {
 
-            var pessoa = new Pessoa
+            var projeto = new Projeto
             {
-                Nome = pessoaRequest.Nome
+                Nome = projetoRequest.Nome
             };
 
-            contexto.Pessoa.Add(pessoa);
+            contexto.Projeto.Add(projeto);
             contexto.SaveChanges();
 
-            var pessoaRetorno = contexto.Pessoa.Where
-                (x => x.Id == pessoa.Id)
+            var projetoRetorno = contexto.Projeto.Where
+                (x => x.Id == projeto.Id)
                 .FirstOrDefault();
 
-            PessoaResponse response = new PessoaResponse();
+            ProjetoResponse response = new ProjetoResponse();
 
-            if (pessoaRetorno != null)
+            if (projetoRetorno != null)
             {
-                response.IdPessoa = pessoaRetorno.Id;
-                response.Nome = pessoaRetorno.Nome;
+                response.IdProjeto = projetoRetorno.Id;
+                response.Nome = projetoRetorno.Nome;
             }
 
             return StatusCode(200, response);
         }
 
-        [HttpGet("{idPessoa}")]
-        [ProducesResponseType(typeof(PessoaResponse), 200)]
-        public IActionResult Get(int idPessoa)
+        [HttpGet("{idProjeto}")]
+        [ProducesResponseType(typeof(ProjetoResponse), 200)]
+        public IActionResult Get(int idProjeto)
         {
-            var pessoa = contexto.Pessoa.FirstOrDefault(
-                x => x.Id == idPessoa);
+            var projeto = contexto.Projeto.FirstOrDefault(
+                x => x.Id == idProjeto);
 
-            return StatusCode(pessoa == null
+            return StatusCode(projeto == null
                 ? 404 :
-                200, new PessoaResponse
+                200, new ProjetoResponse
                 {
-                    IdPessoa = pessoa == null ? -1 : pessoa.Id,
-                    Nome = pessoa == null ? "Pessoa não encontrada"
-                    : pessoa.Nome
+                    IdProjeto = projeto == null ? -1 : projeto.Id,
+                    Nome = projeto == null ? "Projeto não encontrada"
+                    : projeto.Nome
                 });
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(PessoaResponse), 200)]
+        [ProducesResponseType(typeof(ProjetoResponse), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult Put(int id, [FromBody] PessoaRequest pessoaRequest)
+        public IActionResult Put(int id, [FromBody] ProjetoRequest projetoRequest)
         {
             try
             {
-                var pessoa = contexto.Pessoa.Where(x => x.Id == id)
+                var projeto = contexto.Projeto.Where(x => x.Id == id)
                         .FirstOrDefault();
 
-                if (pessoa != null)
+                if (projeto != null)
                 {
-                    pessoa.Nome = pessoaRequest.Nome;
+                    projeto.Nome = projetoRequest.Nome;
                 }
 
-                contexto.Entry(pessoa).State =
+                contexto.Entry(projeto).State =
                     Microsoft.EntityFrameworkCore.EntityState.Modified;
 
                 contexto.SaveChanges();
 
-                var pessoaRetorno = contexto.Pessoa.FirstOrDefault
+                var projetoRetorno = contexto.Projeto.FirstOrDefault
                 (
                     x => x.Id == id
                 );
 
-                PessoaResponse retorno = new PessoaResponse()
+                ProjetoResponse retorno = new ProjetoResponse()
                 {
-                    IdPessoa = pessoaRetorno.Id,
-                    Nome = pessoaRetorno.Nome
+                    IdProjeto = projetoRetorno.Id,
+                    Nome = projetoRetorno.Nome
                 };
 
                 return StatusCode(200, retorno);
@@ -117,16 +117,16 @@ namespace APIOrientacao.Controllers
         {
             try
             {
-                var pessoa = contexto.Pessoa.FirstOrDefault(
+                var projeto = contexto.Projeto.FirstOrDefault(
                     x => x.Id == id);
 
-                if (pessoa != null)
+                if (projeto != null)
                 {
-                    contexto.Pessoa.Remove(pessoa);
+                    contexto.Projeto.Remove(projeto);
                     contexto.SaveChanges();
                 }
 
-                return StatusCode(200, "Pessoa excluída com sucesso!");
+                return StatusCode(200, "Projeto excluída com sucesso!");
             }
 
             catch (Exception ex)
