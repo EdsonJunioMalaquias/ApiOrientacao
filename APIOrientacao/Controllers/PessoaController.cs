@@ -30,7 +30,8 @@ namespace APIOrientacao.Controllers
 
             var pessoa = new Pessoa
             {
-                Nome = pessoaRequest.Nome
+                Nome = pessoaRequest.Nome,
+                Cpf = pessoaRequest.Cpf
             };
 
             contexto.Pessoa.Add(pessoa);
@@ -46,6 +47,7 @@ namespace APIOrientacao.Controllers
             {
                 response.IdPessoa = pessoaRetorno.Id;
                 response.Nome = pessoaRetorno.Nome;
+                response.Cpf = pessoaRetorno.Cpf;
             }
 
             return StatusCode(200, response);
@@ -62,9 +64,37 @@ namespace APIOrientacao.Controllers
                 ? 404 :
                 200, new PessoaResponse
                 {
-                    IdPessoa = pessoa == null ? -1 : pessoa.Id,
-                    Nome = pessoa == null ? "Pessoa não encontrada"
-                    : pessoa.Nome
+                    IdPessoa = pessoa == null 
+                        ? -1 
+                        : pessoa.Id,
+                    Nome = pessoa == null 
+                        ? "Pessoa não encontrada"
+                        : pessoa.Nome,
+                    Cpf = pessoa == null 
+                        ? "Pessoa não encontrada"
+                        : pessoa.Cpf
+                });
+        }
+        [HttpGet("cpf/{cpf}")]
+        [ProducesResponseType(typeof(PessoaResponse), 200)]
+        public IActionResult Get(string cpf)
+        {
+            var pessoa = contexto.Pessoa.FirstOrDefault(
+                x => x.Cpf.Equals(cpf));
+
+            return StatusCode(pessoa == null
+                ? 404 :
+                200, new PessoaResponse
+                {
+                    IdPessoa = pessoa == null 
+                        ? -1 
+                        : pessoa.Id,
+                    Nome = pessoa == null 
+                        ? "Pessoa não encontrada"
+                        : pessoa.Nome,
+                    Cpf = pessoa == null 
+                        ? "Pessoa não encontrada"
+                        : pessoa.Cpf
                 });
         }
 
@@ -82,6 +112,7 @@ namespace APIOrientacao.Controllers
                 if (pessoa != null)
                 {
                     pessoa.Nome = pessoaRequest.Nome;
+                    pessoa.Cpf = pessoaRequest.Cpf;
                 }
 
                 contexto.Entry(pessoa).State =
@@ -97,7 +128,8 @@ namespace APIOrientacao.Controllers
                 PessoaResponse retorno = new PessoaResponse()
                 {
                     IdPessoa = pessoaRetorno.Id,
-                    Nome = pessoaRetorno.Nome
+                    Nome = pessoaRetorno.Nome,
+                    Cpf = pessoaRetorno.Cpf
                 };
 
                 return StatusCode(200, retorno);

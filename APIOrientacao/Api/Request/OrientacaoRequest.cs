@@ -10,6 +10,8 @@ namespace APIOrientacao.Api.Request
     {
         [Required(ErrorMessage = "O nome é obrigatório")]
         public int ProjetoId { get; set; }
+        public int ProfessorPessoaId { get; set; }
+        public int TipoOrientacaoId { get; set; }
         public DateTime DataRegistro { get; set; }
     }
 }

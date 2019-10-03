@@ -9,6 +9,7 @@ namespace APIOrientacao.Api.Request
     public class AlunoRequest
     {
         [Required(ErrorMessage = "O nome é obrigatório")]
+        public int IdAluno { get; set; }
         public string Matricula { get; set; }
         public bool RegistroAtivo { get; set; }
         public int IdCurso { get; set; }

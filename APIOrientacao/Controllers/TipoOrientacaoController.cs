@@ -30,7 +30,7 @@ namespace APIOrientacao.Controllers
 
             var tipoOrientacao = new TipoOrientacao
             {
-                Nome = tipoOrientacaoRequest.Nome
+                Descricao = tipoOrientacaoRequest.Descricao
             };
 
             contexto.TipoOrientacao.Add(tipoOrientacao);
@@ -45,7 +45,7 @@ namespace APIOrientacao.Controllers
             if (tipoOrientacaoRetorno != null)
             {
                 response.IdTipoOrientacao = tipoOrientacaoRetorno.Id;
-                response.Nome = tipoOrientacaoRetorno.Nome;
+                response.Descricao = tipoOrientacaoRetorno.Descricao;
             }
 
             return StatusCode(200, response);
@@ -63,8 +63,8 @@ namespace APIOrientacao.Controllers
                 200, new TipoOrientacaoResponse
                 {
                     IdTipoOrientacao = tipoOrientacao == null ? -1 : tipoOrientacao.Id,
-                    Nome = tipoOrientacao == null ? "TipoOrientacao não encontrada"
-                    : tipoOrientacao.Nome
+                    Descricao = tipoOrientacao == null ? "TipoOrientacao não encontrada"
+                    : tipoOrientacao.Descricao
                 });
         }
 
@@ -81,7 +81,7 @@ namespace APIOrientacao.Controllers
 
                 if (tipoOrientacao != null)
                 {
-                    tipoOrientacao.Nome = tipoOrientacaoRequest.Nome;
+                    tipoOrientacao.Descricao = tipoOrientacaoRequest.Descricao;
                 }
 
                 contexto.Entry(tipoOrientacao).State =
@@ -97,7 +97,7 @@ namespace APIOrientacao.Controllers
                 TipoOrientacaoResponse retorno = new TipoOrientacaoResponse()
                 {
                     IdTipoOrientacao = tipoOrientacaoRetorno.Id,
-                    Nome = tipoOrientacaoRetorno.Nome
+                    Descricao = tipoOrientacaoRetorno.Descricao
                 };
 
                 return StatusCode(200, retorno);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace APIOrientacao.Data.Migrations
 {
-    public partial class migrationEntity : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,8 @@ namespace APIOrientacao.Data.Migrations
                 {
                     IdPessoa = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(maxLength: 300, nullable: false)
+                    Nome = table.Column<string>(maxLength: 300, nullable: false),
+                    Cpf = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

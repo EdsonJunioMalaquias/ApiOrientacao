@@ -9,12 +9,10 @@ namespace APIOrientacao.Data.Entidades
         public string Matricula { get; set; }
         public bool RegistroAtivo { get; set; }
         public int IdCurso { get; set; }
-
         public Curso Curso { get; set; }
         public Pessoa Pessoa { get; set; }
 
         public ICollection<Projeto> Projetos{get;set;}
-
         public Aluno()
         {
             Projetos = new HashSet<Projeto>();

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIOrientacao.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20190927225142_migrationEntity")]
-    partial class migrationEntity
+    [Migration("20191003130054_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,6 +93,8 @@ namespace APIOrientacao.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("IdPessoa")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Cpf");
 
                     b.Property<string>("Nome")
                         .IsRequired()

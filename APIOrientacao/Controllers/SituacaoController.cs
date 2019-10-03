@@ -30,7 +30,7 @@ namespace APIOrientacao.Controllers
 
             var situacao = new Situacao
             {
-                Nome = situacaoRequest.Nome
+                Descricao = situacaoRequest.Descricao
             };
 
             contexto.Situacao.Add(situacao);
@@ -45,7 +45,7 @@ namespace APIOrientacao.Controllers
             if (situacaoRetorno != null)
             {
                 response.IdSituacao = situacaoRetorno.Id;
-                response.Nome = situacaoRetorno.Nome;
+                response.Descricao = situacaoRetorno.Descricao;
             }
 
             return StatusCode(200, response);
@@ -63,8 +63,8 @@ namespace APIOrientacao.Controllers
                 200, new SituacaoResponse
                 {
                     IdSituacao = situacao == null ? -1 : situacao.Id,
-                    Nome = situacao == null ? "Situacao não encontrada"
-                    : situacao.Nome
+                    Descricao = situacao == null ? "Situacao não encontrada"
+                    : situacao.Descricao
                 });
         }
 
@@ -81,7 +81,7 @@ namespace APIOrientacao.Controllers
 
                 if (situacao != null)
                 {
-                    situacao.Nome = situacaoRequest.Nome;
+                    situacao.Descricao = situacaoRequest.Descricao;
                 }
 
                 contexto.Entry(situacao).State =
@@ -97,7 +97,7 @@ namespace APIOrientacao.Controllers
                 SituacaoResponse retorno = new SituacaoResponse()
                 {
                     IdSituacao = situacaoRetorno.Id,
-                    Nome = situacaoRetorno.Nome
+                    Descricao = situacaoRetorno.Descricao
                 };
 
                 return StatusCode(200, retorno);

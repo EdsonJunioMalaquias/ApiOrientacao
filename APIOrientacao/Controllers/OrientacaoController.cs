@@ -30,58 +30,74 @@ namespace APIOrientacao.Controllers
 
             var orientacao = new Orientacao
             {
-                Nome = orientacaoRequest.Nome
+                ProjetoId = orientacaoRequest.ProjetoId,
+                ProfessorPessoaId = orientacaoRequest.ProfessorPessoaId,
+                DataRegistro = orientacaoRequest.DataRegistro,
+                TipoOrientacaoId = orientacaoRequest.TipoOrientacaoId
+
+                
             };
 
             contexto.Orientacao.Add(orientacao);
             contexto.SaveChanges();
 
             var orientacaoRetorno = contexto.Orientacao.Where
-                (x => x.Id == orientacao.Id)
+                (x => x.ProfessorPessoaId == orientacao.ProfessorPessoaId && x.ProjetoId == orientacao.ProjetoId)
                 .FirstOrDefault();
 
             OrientacaoResponse response = new OrientacaoResponse();
 
             if (orientacaoRetorno != null)
             {
-                response.IdOrientacao = orientacaoRetorno.Id;
-                response.Nome = orientacaoRetorno.Nome;
+                response.ProfessorPessoaId = orientacaoRetorno.ProfessorPessoaId;
+                response.ProjetoId = orientacaoRetorno.ProjetoId;
+                response.TipoOrientacaoId = orientacaoRetorno.TipoOrientacaoId;
+                response.DataRegistro = orientacaoRetorno.DataRegistro;
             }
 
             return StatusCode(200, response);
         }
 
-        [HttpGet("{idOrientacao}")]
+        [HttpGet("{ProfessorPessoaId}-{ProjetoId}")]
         [ProducesResponseType(typeof(OrientacaoResponse), 200)]
-        public IActionResult Get(int idOrientacao)
+        public IActionResult Get(int ProfessorPessoaId, int ProjetoId)
         {
             var orientacao = contexto.Orientacao.FirstOrDefault(
-                x => x.Id == idOrientacao);
+                x => x.ProfessorPessoaId == ProfessorPessoaId && x.ProjetoId == ProjetoId);
 
             return StatusCode(orientacao == null
-                ? 404 :
-                200, new OrientacaoResponse
-                {
-                    IdOrientacao = orientacao == null ? -1 : orientacao.Id,
-                    Nome = orientacao == null ? "Orientacao não encontrada"
-                    : orientacao.Nome
-                });
+                ? 404 
+                : 200, new OrientacaoResponse
+                        {
+                            ProfessorPessoaId = orientacao == null 
+                                ? -1 
+                                : orientacao.ProfessorPessoaId,
+                            ProjetoId = orientacao == null 
+                                ? -1 
+                                : orientacao.ProjetoId,
+                            TipoOrientacaoId = orientacao == null 
+                                ? -1 
+                                : orientacao.TipoOrientacaoId,
+                            DataRegistro = orientacao == null 
+                                ? new DateTime(0,0,0)
+                                : orientacao.DataRegistro
+                        });
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{ProfessorPessoaId}-{ProjetoId}")]
         [ProducesResponseType(typeof(OrientacaoResponse), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult Put(int id, [FromBody] OrientacaoRequest orientacaoRequest)
+        public IActionResult Put(int ProfessorPessoaId, int ProjetoId, [FromBody] OrientacaoRequest orientacaoRequest)
         {
             try
             {
-                var orientacao = contexto.Orientacao.Where(x => x.Id == id)
+                var orientacao = contexto.Orientacao.Where(x => x.ProfessorPessoaId == ProfessorPessoaId && x.ProjetoId == ProjetoId)
                         .FirstOrDefault();
 
                 if (orientacao != null)
                 {
-                    orientacao.Nome = orientacaoRequest.Nome;
+                    orientacao.DataRegistro = orientacaoRequest.DataRegistro;
                 }
 
                 contexto.Entry(orientacao).State =
@@ -91,13 +107,16 @@ namespace APIOrientacao.Controllers
 
                 var orientacaoRetorno = contexto.Orientacao.FirstOrDefault
                 (
-                    x => x.Id == id
+                    
+                    x => x.ProfessorPessoaId == ProfessorPessoaId && x.ProjetoId == ProjetoId
                 );
 
                 OrientacaoResponse retorno = new OrientacaoResponse()
                 {
-                    IdOrientacao = orientacaoRetorno.Id,
-                    Nome = orientacaoRetorno.Nome
+                    ProfessorPessoaId = orientacaoRetorno.ProfessorPessoaId,
+                    ProjetoId = orientacaoRetorno.ProjetoId,
+                    TipoOrientacaoId = orientacaoRetorno.TipoOrientacaoId,
+                    DataRegistro = orientacaoRetorno.DataRegistro
                 };
 
                 return StatusCode(200, retorno);
@@ -111,15 +130,14 @@ namespace APIOrientacao.Controllers
 
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{ProfessorPessoaId}-{ProjetoId}")]
         [ProducesResponseType(400)]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int ProfessorPessoaId, int ProjetoId)
         {
             try
             {
                 var orientacao = contexto.Orientacao.FirstOrDefault(
-                    x => x.Id == id);
-
+                    x => x.ProfessorPessoaId == ProfessorPessoaId && x.ProjetoId == ProjetoId);
                 if (orientacao != null)
                 {
                     contexto.Orientacao.Remove(orientacao);
@@ -131,8 +149,7 @@ namespace APIOrientacao.Controllers
 
             catch (Exception ex)
             {
-                return StatusCode(400, ex.InnerException.Message
-                    .FirstOrDefault());
+                return StatusCode(400, ex.Message);
             }
         }
 

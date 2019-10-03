@@ -30,7 +30,8 @@ namespace APIOrientacao.Controllers
 
             var professor = new Professor
             {
-                Nome = professorRequest.Nome
+                Id = professorRequest.IdProfessor,
+                RegistroAtivo = professorRequest.RegistroAtivo
             };
 
             contexto.Professor.Add(professor);
@@ -45,7 +46,7 @@ namespace APIOrientacao.Controllers
             if (professorRetorno != null)
             {
                 response.IdProfessor = professorRetorno.Id;
-                response.Nome = professorRetorno.Nome;
+                response.RegistroAtivo = professorRetorno.RegistroAtivo;
             }
 
             return StatusCode(200, response);
@@ -62,9 +63,12 @@ namespace APIOrientacao.Controllers
                 ? 404 :
                 200, new ProfessorResponse
                 {
-                    IdProfessor = professor == null ? -1 : professor.Id,
-                    Nome = professor == null ? "Professor não encontrada"
-                    : professor.Nome
+                    IdProfessor = professor == null 
+                        ? -1 
+                        : professor.Id,
+                    RegistroAtivo = professor == null 
+                        ? false
+                        : professor.RegistroAtivo
                 });
         }
 
@@ -81,7 +85,7 @@ namespace APIOrientacao.Controllers
 
                 if (professor != null)
                 {
-                    professor.Nome = professorRequest.Nome;
+                    professor.RegistroAtivo = professorRequest.RegistroAtivo;
                 }
 
                 contexto.Entry(professor).State =
@@ -97,7 +101,7 @@ namespace APIOrientacao.Controllers
                 ProfessorResponse retorno = new ProfessorResponse()
                 {
                     IdProfessor = professorRetorno.Id,
-                    Nome = professorRetorno.Nome
+                    RegistroAtivo = professorRetorno.RegistroAtivo
                 };
 
                 return StatusCode(200, retorno);

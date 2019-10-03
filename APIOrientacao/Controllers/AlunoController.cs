@@ -27,10 +27,12 @@ namespace APIOrientacao.Controllers
         public IActionResult Post([FromBody]
             AlunoRequest alunoRequest)
         {
-
             var aluno = new Aluno
             {
-                Nome = alunoRequest.Nome
+                Id = alunoRequest.IdAluno,
+                Matricula = alunoRequest.Matricula,
+                RegistroAtivo =alunoRequest.RegistroAtivo,
+                IdCurso = alunoRequest.IdCurso
             };
 
             contexto.Aluno.Add(aluno);
@@ -45,7 +47,9 @@ namespace APIOrientacao.Controllers
             if (alunoRetorno != null)
             {
                 response.IdAluno = alunoRetorno.Id;
-                response.Nome = alunoRetorno.Nome;
+                response.Matricula = alunoRetorno.Matricula;
+                response.RegistroAtivo = alunoRetorno.RegistroAtivo;
+                response.IdCurso = alunoRetorno.IdCurso;
             }
 
             return StatusCode(200, response);
@@ -62,9 +66,18 @@ namespace APIOrientacao.Controllers
                 ? 404 :
                 200, new AlunoResponse
                 {
-                    IdAluno = aluno == null ? -1 : aluno.Id,
-                    Nome = aluno == null ? "Aluno não encontrada"
-                    : aluno.Nome
+                    IdAluno = aluno == null 
+                        ? -1 
+                        : aluno.Id,
+                    Matricula = aluno == null 
+                        ? "Aluno não encontrada"
+                        : aluno.Matricula,
+                    RegistroAtivo = aluno == null 
+                        ? false
+                        : aluno.RegistroAtivo,
+                    IdCurso = aluno == null 
+                        ? -1
+                        : aluno.IdCurso
                 });
         }
 
@@ -81,7 +94,9 @@ namespace APIOrientacao.Controllers
 
                 if (aluno != null)
                 {
-                    aluno.Nome = alunoRequest.Nome;
+                    aluno.Matricula = alunoRequest.Matricula;
+                    aluno.IdCurso = alunoRequest.IdCurso;
+                    aluno.RegistroAtivo = alunoRequest.RegistroAtivo;
                 }
 
                 contexto.Entry(aluno).State =
@@ -97,7 +112,10 @@ namespace APIOrientacao.Controllers
                 AlunoResponse retorno = new AlunoResponse()
                 {
                     IdAluno = alunoRetorno.Id,
-                    Nome = alunoRetorno.Nome
+                    Matricula = alunoRetorno.Matricula,
+                    RegistroAtivo = alunoRetorno.RegistroAtivo,
+                    IdCurso = alunoRetorno.IdCurso
+
                 };
 
                 return StatusCode(200, retorno);

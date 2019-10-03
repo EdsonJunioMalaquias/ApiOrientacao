@@ -30,7 +30,10 @@ namespace APIOrientacao.Controllers
 
             var projeto = new Projeto
             {
-                Nome = projetoRequest.Nome
+                Nome = projetoRequest.Nome,
+                Encerrado = projetoRequest.Encerrado,
+                PessoaAlunoId = projetoRequest.PessoaAlunoId,
+                Nota = projetoRequest.Nota
             };
 
             contexto.Projeto.Add(projeto);
@@ -46,6 +49,9 @@ namespace APIOrientacao.Controllers
             {
                 response.IdProjeto = projetoRetorno.Id;
                 response.Nome = projetoRetorno.Nome;
+                response.Encerrado = projetoRequest.Encerrado;
+                response.PessoaAlunoId = projetoRequest.PessoaAlunoId;
+                response.Nota = projetoRequest.Nota;
             }
 
             return StatusCode(200, response);
@@ -63,8 +69,18 @@ namespace APIOrientacao.Controllers
                 200, new ProjetoResponse
                 {
                     IdProjeto = projeto == null ? -1 : projeto.Id,
-                    Nome = projeto == null ? "Projeto não encontrada"
-                    : projeto.Nome
+                    Nome = projeto == null 
+                        ? "Projeto não encontrada"
+                        : projeto.Nome,
+                    Encerrado = projeto == null 
+                        ? false
+                        : projeto.Encerrado,
+                    PessoaAlunoId = projeto == null 
+                        ? -1
+                        : projeto.PessoaAlunoId,
+                    Nota = projeto == null 
+                        ? -1
+                        : projeto.Nota                                                
                 });
         }
 
@@ -97,7 +113,11 @@ namespace APIOrientacao.Controllers
                 ProjetoResponse retorno = new ProjetoResponse()
                 {
                     IdProjeto = projetoRetorno.Id,
-                    Nome = projetoRetorno.Nome
+                    Nome = projetoRetorno.Nome,
+                    Encerrado = projetoRetorno.Encerrado,
+                    PessoaAlunoId = projetoRetorno.PessoaAlunoId,
+                    Nota = projetoRetorno.Nota
+
                 };
 
                 return StatusCode(200, retorno);

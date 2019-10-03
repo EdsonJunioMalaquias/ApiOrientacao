@@ -92,6 +92,8 @@ namespace APIOrientacao.Data.Migrations
                         .HasColumnName("IdPessoa")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Cpf");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnName("Nome")

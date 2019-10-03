@@ -30,58 +30,68 @@ namespace APIOrientacao.Controllers
 
             var situacaoProjeto = new SituacaoProjeto
             {
-                Nome = situacaoProjetoRequest.Nome
+                SituacaoId = situacaoProjetoRequest.SituacaoId,
+                ProjetoId = situacaoProjetoRequest.ProjetoId,
+                DataRegistro = situacaoProjetoRequest.DataRegistro
             };
 
             contexto.SituacaoProjeto.Add(situacaoProjeto);
             contexto.SaveChanges();
 
             var situacaoProjetoRetorno = contexto.SituacaoProjeto.Where
-                (x => x.Id == situacaoProjeto.Id)
+                (x => x.SituacaoId == situacaoProjeto.SituacaoId&&x.ProjetoId == situacaoProjeto.ProjetoId)
                 .FirstOrDefault();
 
             SituacaoProjetoResponse response = new SituacaoProjetoResponse();
 
             if (situacaoProjetoRetorno != null)
             {
-                response.IdSituacaoProjeto = situacaoProjetoRetorno.Id;
-                response.Nome = situacaoProjetoRetorno.Nome;
+                response.SituacaoId = situacaoProjetoRetorno.SituacaoId;
+                response.ProjetoId = situacaoProjetoRetorno.ProjetoId;
+                response.DataRegistro = situacaoProjetoRetorno.DataRegistro;
             }
 
             return StatusCode(200, response);
         }
 
-        [HttpGet("{idSituacaoProjeto}")]
+        [HttpGet("{SituacaoId}-{ProjetoId}")]
         [ProducesResponseType(typeof(SituacaoProjetoResponse), 200)]
-        public IActionResult Get(int idSituacaoProjeto)
+        public IActionResult Get(int SituacaoId,int ProjetoId)
         {
             var situacaoProjeto = contexto.SituacaoProjeto.FirstOrDefault(
-                x => x.Id == idSituacaoProjeto);
+                x => x.SituacaoId == SituacaoId && x.ProjetoId == ProjetoId);
 
             return StatusCode(situacaoProjeto == null
-                ? 404 :
-                200, new SituacaoProjetoResponse
-                {
-                    IdSituacaoProjeto = situacaoProjeto == null ? -1 : situacaoProjeto.Id,
-                    Nome = situacaoProjeto == null ? "SituacaoProjeto não encontrada"
-                    : situacaoProjeto.Nome
-                });
+                                ? 404 
+                                : 200, new SituacaoProjetoResponse
+                                        {
+                                            SituacaoId = (situacaoProjeto == null) 
+                                                ? -1 
+                                                : situacaoProjeto.SituacaoId,
+                                            ProjetoId = (situacaoProjeto == null) 
+                                                ? -1 
+                                                : situacaoProjeto.ProjetoId,
+                                            DataRegistro = situacaoProjeto == null 
+                                                ? new DateTime(1,1,1)
+                                                : situacaoProjeto.DataRegistro
+                                        }
+                                );
         }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(SituacaoProjetoResponse), 200)]
+        [HttpPut("{SituacaoId}-{ProjetoId}")]
+         [ProducesResponseType(typeof(SituacaoProjetoResponse), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult Put(int id, [FromBody] SituacaoProjetoRequest situacaoProjetoRequest)
+        public IActionResult Put(int SituacaoId,int ProjetoId, [FromBody] SituacaoProjetoRequest situacaoProjetoRequest)
         {
             try
             {
-                var situacaoProjeto = contexto.SituacaoProjeto.Where(x => x.Id == id)
+                var situacaoProjeto = contexto.SituacaoProjeto.Where(x => x.SituacaoId == SituacaoId  && x.ProjetoId == ProjetoId)
                         .FirstOrDefault();
 
                 if (situacaoProjeto != null)
                 {
-                    situacaoProjeto.Nome = situacaoProjetoRequest.Nome;
+                    situacaoProjeto.DataRegistro = situacaoProjetoRequest.DataRegistro;
                 }
 
                 contexto.Entry(situacaoProjeto).State =
@@ -91,13 +101,14 @@ namespace APIOrientacao.Controllers
 
                 var situacaoProjetoRetorno = contexto.SituacaoProjeto.FirstOrDefault
                 (
-                    x => x.Id == id
+                    x => x.SituacaoId == SituacaoId&& x.ProjetoId == ProjetoId
                 );
 
                 SituacaoProjetoResponse retorno = new SituacaoProjetoResponse()
                 {
-                    IdSituacaoProjeto = situacaoProjetoRetorno.Id,
-                    Nome = situacaoProjetoRetorno.Nome
+                    SituacaoId = situacaoProjetoRetorno.SituacaoId,
+                    ProjetoId = situacaoProjetoRetorno.ProjetoId,
+                    DataRegistro = situacaoProjetoRetorno.DataRegistro
                 };
 
                 return StatusCode(200, retorno);
@@ -111,14 +122,14 @@ namespace APIOrientacao.Controllers
 
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{SituacaoId}-{ProjetoId}")]
         [ProducesResponseType(400)]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int SituacaoId, int ProjetoId)
         {
             try
             {
                 var situacaoProjeto = contexto.SituacaoProjeto.FirstOrDefault(
-                    x => x.Id == id);
+                    x => x.SituacaoId == SituacaoId&&x.ProjetoId == ProjetoId);
 
                 if (situacaoProjeto != null)
                 {
